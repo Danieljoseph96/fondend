@@ -3,8 +3,8 @@ import React from 'react';
 const Home = () => {
   return (
     <div className="container mt-5">
-      <h1>Welcome to Movie DB (TMSB)</h1>
-      <p>Explore the world of movies.</p>
+      <h1>my customise MovieDB (TMSB)</h1>
+      <p>all type movies.</p>
     </div>
   );
 };

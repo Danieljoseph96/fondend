@@ -6,7 +6,7 @@ import { baseURL, ApiKey, ApiToken } from './Utils/Base';
 const MovieDetail = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-
+//effect  auto laoding
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
@@ -33,7 +33,7 @@ const MovieDetail = () => {
   return (
     <div className="container mt-5">
       <h1>{movie.title}</h1>
-      <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="img-fluid" />
+      <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} className="img-fluid" />
       <p>{movie.overview}</p>
     </div>
   );
