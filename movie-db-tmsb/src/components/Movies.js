@@ -10,7 +10,11 @@ const Movies = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  // Fetch movies for the current page
+  const shuffleArray = (array) => {
+    return array.sort(() => Math.random() - 0.5);
+  };
+
+  
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
@@ -24,9 +28,10 @@ const Movies = () => {
             api_key: ApiKey,
           },
         });
-        setMovies(response.data.results);
-        setTotalPages(response.data.total_pages); // Assuming the API returns total pages
-        console.log(response.data.results);
+        const shuffledMovies = shuffleArray(response.data.results); 
+        setMovies(shuffledMovies); 
+        setTotalPages(response.data.total_pages);
+        console.log(shuffledMovies);
       } catch (error) {
         console.error('Error fetching movies:', error);
       } finally {
@@ -37,7 +42,7 @@ const Movies = () => {
     fetchMovies();
   }, [currentPage]);
 
-  // Fetch movie details only when necessary
+
   useEffect(() => {
     const fetchMovieDetails = async (id) => {
       try {
@@ -59,16 +64,16 @@ const Movies = () => {
       }
     };
 
-    // Fetch details only if not already loaded
+
     movies.forEach((movie) => {
       if (!movieDetails[movie.id]) {
         fetchMovieDetails(movie.id);
       }
     });
-    // Remove 'movieDetails' from dependencies to avoid re-render loop
+
   }, [movies]);
 
-  // Pagination controls
+
   const handlePreviousPage = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
@@ -79,7 +84,7 @@ const Movies = () => {
 
   return (
     <div className="container mt-5">
-      <h2>Movies List</h2>
+      <h2>Random Movies List</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -123,7 +128,7 @@ const Movies = () => {
         </div>
       )}
 
-      {/* Pagination Controls */}
+   
       <div className="pagination-controls mt-4">
         <button className="btn btn-secondary" onClick={handlePreviousPage} disabled={currentPage === 1}>
           Previous
